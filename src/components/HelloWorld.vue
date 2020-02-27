@@ -13,20 +13,32 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { MutationPayload } from 'vuex';
 import { AuthActions, AuthGetters, AuthState, AuthInfo } from '../store/api';
-import store from '../store';
+import store from '@/store';
 
 @Component({
   computed: {
-    count: (): number => store.getters[AuthGetters.count],
-    authState: (): AuthState => store.getters[AuthGetters.state],
-    info: (): AuthInfo => store.getters[AuthGetters.state].info,
+    // alternativ for getters
+    // count: (): number => store.getters[AuthGetters.count],
+    // authState: (): AuthState => store.getters[AuthGetters.state],
+    // info: (): AuthInfo => store.getters[AuthGetters.state].info,
   },
 })
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
   subscriptions: Array<() => void> = [];
 
-  info!: AuthInfo;
+  // info!: AuthInfo; // must be set to access info when used with computed in @Component
+
+  // alternative for computed properties in @Component
+  get count(): number {
+    return this.$store.getters[AuthGetters.count];
+  }
+  get authState(): AuthState {
+    return this.$store.getters[AuthGetters.state];
+  }
+  get info(): AuthInfo {
+    return this.$store.getters[AuthGetters.state].info;
+  }
 
   increment(): void {
     this.$store.dispatch(AuthActions.INCREMENT);
