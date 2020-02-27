@@ -5,7 +5,7 @@
     <button @click="setCount(1)">Set to 1</button>
     <button @click="logInOff()">{{ info.loggendIn ? 'Logoff' : 'login' }}</button>
     <p v-if="!!count">{{ count }}</p>
-    <p>state: {{ authState }}</p>
+    <p>authState: {{ authState }}</p>
   </div>
 </template>
 

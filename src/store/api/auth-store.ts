@@ -90,7 +90,6 @@ const mutations: MutationTree<AuthState> = {
 
   setInfo: (state, payload: AuthInfo) => {
     console.log('Mutation fired');
-    console.log(payload);
     state.info = { ...state.info, ...payload };
   },
 };

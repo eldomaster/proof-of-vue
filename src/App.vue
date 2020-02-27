@@ -8,6 +8,18 @@
   </div>
 </template>
 
+<script lang="ts">
+// @ is an alias to /src
+import { Component, Vue } from 'vue-property-decorator';
+
+@Component
+export default class HelloWorld extends Vue {
+  mounted(): void {
+    this.$store.commit('init');
+  }
+}
+</script>
+
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
