@@ -1,17 +1,6 @@
 import { Module, ActionTree, GetterTree, Action, MutationTree } from 'vuex';
 import { RootState } from '../root-state';
-
-export interface AuthState {
-  count: number;
-  info: AuthInfo;
-}
-
-export interface AuthInfo {
-  loggendIn: boolean;
-  loginError?: string;
-  username?: string;
-  token?: string;
-}
+import { AuthState, AuthInfo } from './auth-state';
 
 const initState: AuthState = {
   info: {
@@ -22,6 +11,7 @@ const initState: AuthState = {
   },
   count: 1,
 };
+
 
 const base: string = 'AuthStore/';
 
