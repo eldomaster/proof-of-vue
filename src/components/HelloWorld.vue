@@ -17,6 +17,8 @@ export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
   authState: AuthState = this.$store.state.AuthStore;
 
+  subscriptions: Array<() => void> = [];
+
   increment(): void {
     this.$store.dispatch(AuthActions.INCREMENT);
   }
@@ -30,9 +32,16 @@ export default class HelloWorld extends Vue {
   }
 
   created(): void {
-    this.$store.subscribe((s: MutationPayload) => {
-      console.log(s);
-    });
+    this.subscriptions.push(
+      this.$store.subscribe((s: MutationPayload) => {
+        console.log(s);
+      })
+    );
+  }
+
+  destroyed(): void {
+    console.log('unsubscribe from store');
+    this.subscriptions.forEach(func => func());
   }
 }
 </script>
