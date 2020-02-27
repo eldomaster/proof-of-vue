@@ -3,32 +3,43 @@
     <h1>{{ msg }}</h1>
     <button @click="increment()">Increment</button>
     <button @click="setCount(1)">Set to 1</button>
+    <button @click="logInOff()">{{ info.loggendIn ? 'Logoff' : 'login' }}</button>
     <p v-if="!!count">{{ count }}</p>
+    <p>state: {{ authState }}</p>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { MutationPayload } from 'vuex';
-import { AuthActions, AuthState } from '../store/api';
+import { AuthActions, AuthGetters, AuthState, AuthInfo } from '../store/api';
+import store from '../store';
 
-@Component
+@Component({
+  computed: {
+    count: (): number => store.getters[AuthGetters.count],
+    authState: (): AuthState => store.getters[AuthGetters.state],
+    info: (): AuthInfo => store.getters[AuthGetters.state].info,
+  },
+})
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
-  authState: AuthState = this.$store.state.AuthStore;
-
   subscriptions: Array<() => void> = [];
+
+  info!: AuthInfo;
 
   increment(): void {
     this.$store.dispatch(AuthActions.INCREMENT);
+    console.log(this.info);
   }
 
   setCount(count: number = 5): void {
-    this.$store.dispatch(AuthActions.SETCOUNT, { count: count });
+    this.$store.dispatch(AuthActions.SET_COUNT, { count: count });
   }
 
-  get count(): number {
-    return this.authState?.count;
+  logInOff(): void {
+    if (this.info?.loggendIn) this.$store.dispatch(AuthActions.LOGOFF);
+    else this.$store.dispatch(AuthActions.TRY_LOGIN, { username: 'eldo', password: 'eldo' });
   }
 
   created(): void {
