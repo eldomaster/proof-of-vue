@@ -49,7 +49,6 @@ export default class HelloWorld extends Vue {
 
   increment(): void {
     this.$store.dispatch(AuthActions.INCREMENT);
-    console.log(this.info);
   }
 
   setCount(count: number = 5): void {
