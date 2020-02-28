@@ -1,3 +1,4 @@
 module.exports = {
-  publicPath: './proof-of-vue',
+  publicPath: '/proof-of-vue',
+  outputDir: './docs',
 };
