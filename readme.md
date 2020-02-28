@@ -1,0 +1,1 @@
+Compiled [example](https://eldomaster.github.io/proof-of-vue/)
