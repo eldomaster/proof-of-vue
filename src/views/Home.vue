@@ -21,7 +21,6 @@ export default class Hello extends Vue {
   username: string = 'Username';
 
   setUSername(event: string): void {
-    console.log(event);
     this.username = event;
   }
 }
