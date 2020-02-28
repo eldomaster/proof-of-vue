@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
 import { MutationPayload } from 'vuex';
 import { AuthActions, AuthGetters, AuthState, AuthInfo } from '../store/api';
 import store from '@/store';
@@ -25,6 +25,13 @@ import store from '@/store';
 })
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
+
+  @Emit()
+  updateName(): string {
+    const str: string = this.authState?.info?.username ? 'User ' + this.authState?.info?.username : 'Not logged in!';
+    return str;
+  }
+
   subscriptions: Array<() => void> = [];
 
   // info!: AuthInfo; // must be set to access info when used with computed in @Component
@@ -57,6 +64,7 @@ export default class HelloWorld extends Vue {
   created(): void {
     this.subscriptions.push(
       this.$store.subscribe((s: MutationPayload) => {
+        this.updateName();
         console.log(s);
       })
     );

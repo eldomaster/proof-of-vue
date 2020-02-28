@@ -1,18 +1,28 @@
 <template>
   <div class="home">
     <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
-    <HelloWorld msg="Store Management Test in Vue" />
+    <p>{{ username }}</p>
+    <HelloWorld msg="Hello" @update-name="setUSername($event)" />
   </div>
 </template>
 
-<script>
+<script lang="ts">
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld';
+import HelloWorld from '@/components/HelloWorld.vue';
 
-export default {
-  name: 'Home',
+import { Component, Vue } from 'vue-property-decorator';
+
+@Component({
   components: {
     HelloWorld,
   },
-};
+})
+export default class Hello extends Vue {
+  username: string = 'Username';
+
+  setUSername(event: string): void {
+    console.log(event);
+    this.username = event;
+  }
+}
 </script>

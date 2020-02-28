@@ -1,4 +1,4 @@
-import { Module, ActionTree, GetterTree, Action, MutationTree } from 'vuex';
+import { Module, ActionTree, GetterTree, MutationTree } from 'vuex';
 import { RootState } from '../root-state';
 import { AuthState, AuthInfo } from './auth-state';
 
@@ -75,7 +75,7 @@ const actions: ActionTree<AuthState, RootState> = {
   logoff: ({ commit }) => {
     console.log('Action fired');
     commit('setInfo', {
-      ...initState().info
+      ...initState().info,
     } as AuthInfo);
   },
 };
