@@ -4,7 +4,9 @@
     <button @click="increment()">Increment</button>
     <button @click="setCount(1)">Set to 1</button>
     <button @click="logInOff()">{{ info.loggendIn ? 'Logoff' : 'login' }}</button>
-    <p v-if="!!count">{{ count }}</p>
+    <br />
+    <br />
+    Count: <input type="text" :value="count" @change="updateCount($event)" placeholder="TestInput" />
     <p>authState: {{ authState }}</p>
   </div>
 </template>
@@ -30,6 +32,10 @@ export default class HelloWorld extends Vue {
   updateName(): string {
     const str: string = this.authState?.info?.username ? 'User ' + this.authState?.info?.username : 'Not logged in!';
     return str;
+  }
+
+  updateCount(event: Event & { target: HTMLInputElement }): void {
+    this.$store.dispatch(AuthActions.SET_COUNT, { count: Number.parseInt(event.target.value) });
   }
 
   @Emit('update:msg')

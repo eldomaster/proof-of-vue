@@ -11,6 +11,7 @@ const initState = (): RootState => ({
 });
 
 export default new Vuex.Store<RootState>({
+  strict: true,
   state: initState,
   mutations: {
     init: state => {
