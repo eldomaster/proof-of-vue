@@ -6,7 +6,7 @@
     <button @click="logInOff()">{{ info.loggendIn ? 'Logoff' : 'login' }}</button>
     <br />
     <br />
-    Count: <input type="text" :value="count" @change="updateCount($event)" placeholder="TestInput" />
+    Count: <input v-numbers type="text" :value="count" @change="updateCount($event)" placeholder="TestInput" />
     <p>authState: {{ authState }}</p>
   </div>
 </template>
@@ -16,6 +16,7 @@ import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
 import { MutationPayload } from 'vuex';
 import { AuthActions, AuthGetters, AuthState, AuthInfo } from '../store/api';
 import store, { RootState } from '@/store';
+import { numberDirective } from '@/directives';
 
 @Component({
   computed: {
@@ -23,6 +24,9 @@ import store, { RootState } from '@/store';
     // count: (): number => store.getters[AuthGetters.count],
     // authState: (): AuthState => store.getters[AuthGetters.state],
     // info: (): AuthInfo => store.getters[AuthGetters.state].info,
+  },
+  directives: {
+    numbers: numberDirective,
   },
 })
 export default class HelloWorld extends Vue {
