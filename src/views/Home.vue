@@ -2,7 +2,7 @@
   <div class="home">
     <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
     <p>{{ username }}</p>
-    <HelloWorld msg="Hello" @update-name="setUSername($event)" />
+    <HelloWorld :msg.sync="msg" @update-name="setUSername($event)" />
   </div>
 </template>
 
@@ -19,6 +19,7 @@ import { Component, Vue } from 'vue-property-decorator';
 })
 export default class Hello extends Vue {
   username: string = 'Username';
+  msg: string = 'Hello';
 
   setUSername(event: string): void {
     this.username = event;

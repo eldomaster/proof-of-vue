@@ -13,7 +13,7 @@
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
 import { MutationPayload } from 'vuex';
 import { AuthActions, AuthGetters, AuthState, AuthInfo } from '../store/api';
-import store from '@/store';
+import store, { RootState } from '@/store';
 
 @Component({
   computed: {
@@ -30,6 +30,11 @@ export default class HelloWorld extends Vue {
   updateName(): string {
     const str: string = this.authState?.info?.username ? 'User ' + this.authState?.info?.username : 'Not logged in!';
     return str;
+  }
+
+  @Emit('update:msg')
+  updateMsg(): string {
+    return this.authState.info?.loggendIn ? 'Welcome!' : 'Hello';
   }
 
   subscriptions: Array<() => void> = [];
@@ -62,9 +67,11 @@ export default class HelloWorld extends Vue {
 
   created(): void {
     this.subscriptions.push(
-      this.$store.subscribe((s: MutationPayload) => {
+      this.$store.subscribe((mut: MutationPayload, state: RootState) => {
         this.updateName();
-        console.log(s);
+        this.updateMsg();
+        console.log(mut);
+        console.log(state);
       })
     );
   }
